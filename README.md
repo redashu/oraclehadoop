@@ -323,3 +323,48 @@ Syncing disks.
  vgextend   centos   /dev/xvda3 
  vgdisplay 
  ```
+
+## Extending lvm 
+
+```
+[root@ashunamenode ~]# df  -h
+Filesystem               Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root  6.7G  1.6G  5.1G  24% /
+devtmpfs                 1.9G     0  1.9G   0% /dev
+tmpfs                    1.9G     0  1.9G   0% /dev/shm
+tmpfs                    1.9G  8.5M  1.9G   1% /run
+tmpfs                    1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/xvda1               497M  220M  277M  45% /boot
+tmpfs                    379M     0  379M   0% /run/user/1000
+[root@ashunamenode ~]# 
+[root@ashunamenode ~]# 
+[root@ashunamenode ~]# 
+[root@ashunamenode ~]# lvextend  --size +90G  /dev/mapper/centos-root
+  Size of logical volume centos/root changed from <6.67 GiB (1707 extents) to <96.67 GiB (24747 extents).
+  Logical volume centos/root successfully resized.
+
+===
+
+[root@ashunamenode ~]# xfs_growfs   /dev/mapper/centos-root 
+meta-data=/dev/mapper/centos-root isize=256    agcount=4, agsize=436992 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=0        finobt=0 spinodes=0
+data     =                       bsize=4096   blocks=1747968, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=0
+log      =internal               bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+data blocks changed from 1747968 to 25340928
+[root@ashunamenode ~]# df -h 
+Filesystem               Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root   97G  1.6G   96G   2% /
+devtmpfs                 1.9G     0  1.9G   0% /dev
+tmpfs                    1.9G     0  1.9G   0% /dev/shm
+tmpfs                    1.9G  8.5M  1.9G   1% /run
+tmpfs                    1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/xvda1               497M  220M  277M  45% /boot
+tmpfs                    379M     0  379M   0% /run/user/1000
+
+
+```
