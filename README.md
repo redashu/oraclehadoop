@@ -180,3 +180,144 @@ OpenJDK Runtime Environment (build 1.8.0_262-b10)
 OpenJDK 64-Bit Server VM (build 25.262-b10, mixed mode)
 ```
 
+
+# Hardware verfication 
+
+##  Check RAM and CPU 
+
+```
+[root@ashunamenode ~]# free  -m 
+              total        used        free      shared  buff/cache   available
+Mem:           3788          88        3196           8         503        3463
+Swap:           819           0         819
+
+
+===
+[root@ashunamenode ~]# lscpu 
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                2
+On-line CPU(s) list:   0,1
+Thread(s) per core:    1
+Core(s) per socket:    2
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 79
+Model name:            Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz
+Stepping:              1
+CPU MHz:               2300.123
+BogoMIPS:              4600.12
+
+```
+
+## checking storage 
+
+```
+[root@ashunamenode ~]# df  -h 
+Filesystem               Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root  6.7G  1.6G  5.1G  24% /
+
+
+```
+
+## Increasing storage with LVM 
+
+```
+[root@ashunamenode ~]# fdisk  -l   /dev/xvda 
+
+Disk /dev/xvda: 107.4 GB, 107374182400 bytes, 209715200 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000a2a6d
+
+    Device Boot      Start         End      Blocks   Id  System
+/dev/xvda1   *        2048     1026047      512000   83  Linux
+/dev/xvda2         1026048    16777215     7875584   8e  Linux LVM
+
+
+```
+
+## entering into storage
+```
+[root@ashunamenode ~]# fdisk   /dev/xvda 
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): 
+
+
+
+Command (m for help): p
+
+Disk /dev/xvda: 107.4 GB, 107374182400 bytes, 209715200 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000a2a6d
+
+    Device Boot      Start         End      Blocks   Id  System
+/dev/xvda1   *        2048     1026047      512000   83  Linux
+/dev/xvda2         1026048    16777215     7875584   8e  Linux LVM
+
+Command (m for help): n
+Partition type:
+   p   primary (2 primary, 0 extended, 2 free)
+   e   extended
+Select (default p): 
+Using default response p
+Partition number (3,4, default 3): 
+First sector (16777216-209715199, default 16777216): 
+Using default value 16777216
+Last sector, +sectors or +size{K,M,G} (16777216-209715199, default 209715199): 
+Using default value 209715199
+Partition 3 of type Linux and of size 92 GiB is set
+
+Command (m for help): 
+Command (m for help): p
+
+Disk /dev/xvda: 107.4 GB, 107374182400 bytes, 209715200 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000a2a6d
+
+    Device Boot      Start         End      Blocks   Id  System
+/dev/xvda1   *        2048     1026047      512000   83  Linux
+/dev/xvda2         1026048    16777215     7875584   8e  Linux LVM
+/dev/xvda3        16777216   209715199    96468992   83  Linux
+
+```
+
+## TO update partition table in Linux 
+WARNING: Re-reading the partition table failed with error 16: Device or resource busy.
+The kernel still uses the old table. The new table will be used at
+the next reboot or after you run partprobe(8) or kpartx(8)
+Syncing disks.
+[root@ashunamenode ~]# 
+[root@ashunamenode ~]# 
+[root@ashunamenode ~]# 
+[root@ashunamenode ~]# partprobe 
+[root@ashunamenode ~]# 
+[root@ashunamenode ~]# 
+
+
+
+```
+
+## adding storage to Volume group
+
+```
+ 86  pvcreate /dev/xvda3
+ vgextend   centos   /dev/xvda3 
+ vgdisplay 
+ ```
