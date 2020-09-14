@@ -192,3 +192,25 @@ Agent out at: /var/log/ambari-agent/ambari-agent.out
 Agent log at: /var/log/ambari-agent/ambari-agent.log
 
 ```
+
+## Open ambari web ui
+
+```
+http://3.235.243.214:8080/#/login
+
+```
+
+## during ambari agent registration if any error message we are getting 
+
+## to check agent logs first 
+
+```
+[root@ashunamenode ~]# ambari-agent  status
+Found ambari-agent PID: 4178
+ambari-agent running.
+Agent PID at: /run/ambari-agent/ambari-agent.pid
+Agent out at: /var/log/ambari-agent/ambari-agent.out
+Agent log at: /var/log/ambari-agent/ambari-agent.log
+[root@ashunamenode ~]# 
+
+```
