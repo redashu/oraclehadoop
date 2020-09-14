@@ -148,3 +148,12 @@ echo never >/sys/kernel/mm/transparent_hugepage/enabled
 ```
 
 
+## updating NTP client in all the system 
+
+```
+ yum  install  ntp
+  systemctl enable  --now  ntpd 
+  
+  ```
+  
+  
