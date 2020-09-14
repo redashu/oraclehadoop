@@ -100,3 +100,51 @@ rtt min/avg/max/mdev = 0.019/0.024/0.027/0.005 ms
 172.31.69.245  nikithdatanode.hadoop.com
 
 ```
+
+## For better performance setting up swap memory  migration value 
+
+```
+[root@ip-172-31-78-46 etc]# cat  /etc/sysctl.conf 
+# sysctl settings are defined through files in
+# /usr/lib/sysctl.d/, /run/sysctl.d/, and /etc/sysctl.d/.
+#
+# Vendors settings live in /usr/lib/sysctl.d/.
+# To override a whole file, create a new file with the same in
+# /etc/sysctl.d/ and put new settings there. To override
+# only specific settings, add a file with a lexically later
+# name in /etc/sysctl.d/ and put new settings there.
+#
+# For more information, see sysctl.conf(5) and sysctl.d(5).
+vm.swappiness=10  
+#  here 10 value means out  of 100 % how much is left
+
+```
+
+## Disable pagging 
+
+```
+[root@ip-172-31-78-46 etc]# cat  /etc/rc.local
+#!/bin/bash
+# THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES
+#
+# It is highly advisable to create own systemd services or udev rules
+# to run scripts during boot instead of using this file.
+#
+# In contrast to previous versions due to parallel execution during boot
+# this script will NOT be run after all other services.
+#
+# Please note that you must run 'chmod +x /etc/rc.d/rc.local' to ensure
+# that this script will be executed during boot.
+
+chmod +x /etc/aws114_bootlog.sh
+/etc/aws114_bootlog.sh
+touch /var/lock/subsys/local
+echo never >/sys/kernel/mm/transparent_hugepage/defrag
+echo never >/sys/kernel/mm/transparent_hugepage/enabled
+
+
+[root@ip-172-31-78-46 etc]# chmod +x   /etc/rc.local
+
+```
+
+
