@@ -7,3 +7,11 @@
 ## hadoop echo system
 
 <img src="hadoop.png">
+
+## HDFS version 
+
+<img src="version.png">
+
+## HDFS architecture
+
+<img src="hdfsarch.png">
