@@ -156,4 +156,27 @@ echo never >/sys/kernel/mm/transparent_hugepage/enabled
   
   ```
   
+  # Setup HDFS  
   
+  ## Install jdk 8 in centos 7.5 
+  
+  ```
+  yum  install  java-1.8.0-openjdk
+  
+  ```
+  
+  ## support for HDP platform 
+  
+  ```
+  [root@ashunamenode ~]# yum  install  libtirpc-devel -y
+  ```
+  
+  ## to check java version 
+  
+  ```
+  [root@ashunamenode ~]# java -version 
+openjdk version "1.8.0_262"
+OpenJDK Runtime Environment (build 1.8.0_262-b10)
+OpenJDK 64-Bit Server VM (build 25.262-b10, mixed mode)
+```
+
