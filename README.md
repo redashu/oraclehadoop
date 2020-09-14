@@ -1,17 +1,9 @@
-# Hadoop The solution for any Bigdata related problems
+# apache ambari based HDP 2.6 setup
 
-## Intro
+## Info about  setup
 
-<img src="data.png">
+<img src="info.png">
 
-## hadoop echo system
+## ambari offering 
 
-<img src="hadoop.png">
-
-## HDFS version 
-
-<img src="version.png">
-
-## HDFS architecture
-
-<img src="hdfsarch.png">
+<img src="ambari.png">
