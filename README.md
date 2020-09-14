@@ -7,3 +7,7 @@
 ## ambari offering 
 
 <img src="ambari.png">
+
+## How ambari works 
+
+<img src="works.png">
