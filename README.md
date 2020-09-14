@@ -299,6 +299,9 @@ Disk identifier: 0x000a2a6d
 ```
 
 ## TO update partition table in Linux 
+
+```
+
 WARNING: Re-reading the partition table failed with error 16: Device or resource busy.
 The kernel still uses the old table. The new table will be used at
 the next reboot or after you run partprobe(8) or kpartx(8)
@@ -309,7 +312,6 @@ Syncing disks.
 [root@ashunamenode ~]# partprobe 
 [root@ashunamenode ~]# 
 [root@ashunamenode ~]# 
-
 
 
 ```
