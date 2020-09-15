@@ -103,3 +103,74 @@ Usage: hadoop fs [generic options]
    45  hdfs  dfsadmin  -report 
 
 ```
+
+# HA in Namenode : 
+
+## concept 
+
+## we need 5 VMS 
+
+<ol>
+	<li> current name node </li>
+	<li> additional node for stand by </li>
+	<li> 3 journal nodes atlease </li>
+</ol>
+
+## pic 
+<img src="ha.png">
+
+## Go to service tab in ambari and click on namenode HA then follow the steps 
+
+## Put current namenode as in SafeMode 
+
+```
+[hdfs@ashumaster ~]$ hdfs dfsadmin -safemode enter 
+Safe mode is ON
+
+```
+## just to cross check 
+
+```
+[hdfs@ashumaster ~]$ hdfs dfsadmin  -report 
+Safe mode is ON
+Configured Capacity: 543938314240 (506.58 GB)
+Present Capacity: 513680487989 (478.40 GB)
+DFS Remaining: 490488451072 (456.80 GB)
+DFS Used: 23192036917 (21.60 GB)
+DFS Used%: 4.51%
+Under replicated blocks: 0
+Blocks with corrupt replicas: 0
+Missing blocks: 0
+
+```
+
+## Now take backup that is check pointing 
+
+```
+[hdfs@ashumaster ~]$ hdfs dfsadmin -saveNamespace
+Save namespace successful
+
+```
+
+## after following web ui now initialize the journal nodes
+
+```
+hdfs namenode -initializeSharedEdits
+```
+
+## configure failover tech in current master node 
+
+```
+hdfs zkfc -formatZK
+```
+
+## stop secondary namenode and configure as additional namenode 
+
+```
+hdfs namenode -bootstrapStandby
+```
+
+## now click the final from web UI 
+
+
+	
