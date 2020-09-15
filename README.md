@@ -87,3 +87,19 @@ Usage: hadoop fs [generic options]
    32  hdfs  dfs  -cat  /ashutoshhdata/ashudata.txt
    ```
    
+## safemode 
+
+```
+ 35  hdfs  dfsadmin  -report 
+   36  hdfs  dfsadmin  -safemode  enter  
+   37  hdfs  dfs  -ls   /
+   38  hdfs  dfs  -ls   /ashutoshh
+   39  hdfs  dfs  -ls   /ashutoshhdata
+   40  hdfs  dfs  -cat  /ashutoshhdata/ashudata.txt
+   41  hdfs   dfs  -ls   /
+   42  hdfs   dfs  -mkdir    /helloashu
+   43  hdfs  dfsadmin  -safemode  leave 
+   44  hdfs   dfs  -mkdir    /helloashu
+   45  hdfs  dfsadmin  -report 
+
+```
