@@ -172,5 +172,46 @@ hdfs namenode -bootstrapStandby
 
 ## now click the final from web UI 
 
+# Now evalution of HA
 
-	
+```
+[hdfs@ashumaster ~]$ hdfs   haadmin   -getServiceState nn1
+active
+[hdfs@ashumaster ~]$ hdfs   haadmin   -getServiceState nn2
+standby
+[hdfs@ashumaster ~]$ 
+[hdfs@ashumaster ~]$ 
+[hdfs@ashumaster ~]$ 
+[hdfs@ashumaster ~]$ hdfs  haadmin  -failover  nn1  nn2
+Failover to NameNode at madhumaster.hadoop.com/172.31.72.240:8020 successful
+[hdfs@ashumaster ~]$ hdfs   haadmin   -getServiceState nn1
+standby
+[hdfs@ashumaster ~]$ hdfs   haadmin   -getServiceState nn2
+active
+[hdfs@ashumaster ~]$ hdfs  dfs  -ls  /
+Found 22 items
+drwxrwxrwx   - yarn   hadoop          0 2020-09-15 02:36 /app-logs
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:09 /ashisData
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:10 /ashutoshhdata
+drwxr-xr-x   - yarn   hadoop          0 2020-09-15 02:05 /ats
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:12 /banudata
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:09 /deepakdata
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:09 /dinesh
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:18 /diptidata
+-rw-r--r--   3 hdfs   hdfs           33 2020-09-15 03:20 /girish
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:19 /girishdata
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 02:05 /hdp
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:32 /helloashu
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:32 /hellosrini
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:05 /kdpdata
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:10 /madhudata
+drwxr-xr-x   - mapred hdfs            0 2020-09-15 02:05 /mapred
+drwxrwxrwx   - mapred hadoop          0 2020-09-15 02:23 /mr-history
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:09 /pradeepdata
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:09 /rohitkdata
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:09 /srinidata
+drwxrwxrwx   - hdfs   hdfs            0 2020-09-15 02:05 /tmp
+drwxr-xr-x   - hdfs   hdfs            0 2020-09-15 03:09 /user
+
+```
+
