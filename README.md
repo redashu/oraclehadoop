@@ -1,17 +1,12 @@
-# Hadoop The solution for any Bigdata related problems
+#  Day 2 
+# Sec NameNode  concept 
 
-## Intro
+<img src="secnn.png">
 
-<img src="data.png">
+# Map Reduce 
 
-## hadoop echo system
+<img src="mr.png">
 
-<img src="hadoop.png">
+# YARN 
 
-## HDFS version 
-
-<img src="version.png">
-
-## HDFS architecture
-
-<img src="hdfsarch.png">
+<img src="yarn.png">
