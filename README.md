@@ -244,3 +244,95 @@ krbtgt/HADOOP.COM@HADOOP.COM
 kadmin:  
 
 ```
+
+## after enable kerberos from Ambari 
+
+### ambari will login to kdc and will create prinicipals
+
+```
+[root@ip-172-31-73-56 krb5kdc]# kadmin.local 
+Authenticating as principal root/admin@EC2.INTERNAL with password.
+kadmin.local:  listprincs 
+HTTP/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+HTTP/ip-172-31-70-135.ec2.internal@EC2.INTERNAL
+HTTP/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+K/M@EC2.INTERNAL
+activity_analyzer/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+activity_explorer/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+admin/admin@EC2.INTERNAL
+ambari-qa-myclusterrr@EC2.INTERNAL
+ambari-server-myclusterrr@EC2.INTERNAL
+amshbase/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+amszk/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+dn/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+dn/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+hbase-myclusterrr@EC2.INTERNAL
+hbase/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+hbase/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+hdfs-myclusterrr@EC2.INTERNAL
+hive/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+hive/ip-172-31-70-135.ec2.internal@EC2.INTERNAL
+hive/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+infra-solr/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+jhs/ip-172-31-70-135.ec2.internal@EC2.INTERNAL
+kadmin/admin@EC2.INTERNAL
+kadmin/changepw@EC2.INTERNAL
+kadmin/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+kiprop/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+krbtgt/EC2.INTERNAL@EC2.INTERNAL
+nm/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+nm/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+nn/ip-172-31-70-135.ec2.internal@EC2.INTERNAL
+nn/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+rm/ip-172-31-70-135.ec2.internal@EC2.INTERNAL
+yarn/ip-172-31-70-135.ec2.internal@EC2.INTERNAL
+zookeeper/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+zookeeper/ip-172-31-70-135.ec2.internal@EC2.INTERNAL
+zookeeper/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+
+```
+
+## Location of services prinicipals on KDc node 
+
+```
+[root@ip-172-31-73-56 krb5kdc]# cd  /etc/security/keytabs/
+[root@ip-172-31-73-56 keytabs]# ls
+ams-hbase.master.keytab        dn.service.keytab      hive.service.keytab        spnego.service.keytab
+ams-hbase.regionserver.keytab  hbase.headless.keytab  nm.service.keytab          zk.service.keytab
+ams-zk.service.keytab          hbase.service.keytab   nn.service.keytab
+ams.collector.keytab           hdfs.headless.keytab   smokeuser.headless.keytab
+
+```
+
+
+## cross checking client configured by Apache ambari 
+
+```
+[root@ip-172-31-68-237 ~]# rpm -qa  |   grep -i krb5
+krb5-workstation-1.15.1-46.el7.x86_64
+krb5-libs-1.15.1-46.el7.x86_64
+[root@ip-172-31-68-237 ~]# cat  /etc/krb5.conf
+
+[libdefaults]
+  renew_lifetime = 7d
+  forwardable = true
+  default_realm = EC2.INTERNAL
+  ticket_lifetime = 24h
+  dns_lookup_realm = false
+  dns_lookup_kdc = false
+  default_ccache_name = /tmp/krb5cc_%{uid}
+  #default_tgs_enctypes = aes des3-cbc-sha1 rc4 des-cbc-md5
+  #default_tkt_enctypes = aes des3-cbc-sha1 rc4 des-cbc-md5
+
+[logging]
+  default = FILE:/var/log/krb5kdc.log
+  admin_server = FILE:/var/log/kadmind.log
+  kdc = FILE:/var/log/krb5kdc.log
+
+[realms]
+  EC2.INTERNAL = {
+    admin_server = ip-172-31-73-56.ec2.internal
+    kdc = ip-172-31-73-56.ec2.internal
+  }
+
+```
