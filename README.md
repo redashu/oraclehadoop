@@ -112,3 +112,135 @@ gc.log-202009152312  hadoop-hdfs-namenode-ashumaster.hadoop.com.out.2     hdfs-a
 
 ## setting up Kerberos Server 
 
+```
+161  yum install  krb5-workstation  krb5-libs  krb5-server  -y
+
+```
+
+## checking configuration 
+
+```
+[root@ashumaster ~]# rpm  -q krb5-server
+krb5-server-1.15.1-46.el7.x86_64
+[root@ashumaster ~]# rpm  -qc krb5-server
+/etc/logrotate.d/kadmind
+/etc/logrotate.d/krb5kdc
+/etc/sysconfig/kadmin
+/etc/sysconfig/kprop
+/etc/sysconfig/krb5kdc
+/var/kerberos/krb5kdc/kadm5.acl
+/var/kerberos/krb5kdc/kdc.conf
+[root@ashumaster ~]# 
+[root@ashumaster ~]# rpm -qf   /etc/krb5.conf 
+krb5-libs-1.15.1-46.el7.x86_64
+[root@ashumaster ~]# 
+
+
+==
+[root@ashumaster ~]# cat /etc/krb5.conf
+# Configuration snippets may be placed in this directory as well
+includedir /etc/krb5.conf.d/
+
+[logging]
+ default = FILE:/var/log/krb5libs.log
+ kdc = FILE:/var/log/krb5kdc.log
+ admin_server = FILE:/var/log/kadmind.log
+
+[libdefaults]
+ dns_lookup_realm = false
+ ticket_lifetime = 24h
+ renew_lifetime = 7d
+ forwardable = true
+ rdns = false
+ pkinit_anchors = FILE:/etc/pki/tls/certs/ca-bundle.crt
+ default_realm = HADOOP.COM
+ default_ccache_name = KEYRING:persistent:%{uid}
+
+[realms]
+ HADOOP.COM = {
+  kdc = ashumaster.hadoop.com
+  admin_server = ashumaster.hadoop.com
+ }
+
+[domain_realm]
+ .HADOOP.COM = HADOOP.COM
+ HADOOP.COM = HADOOP.COM
+
+
+```
+## creating KDC database with One principal with username and password
+
+```
+[root@ashumaster ~]# kdb5_util  create  -s
+Loading random data
+Initializing database '/var/kerberos/krb5kdc/principal' for realm 'HADOOP.COM',
+master key name 'K/M@HADOOP.COM'
+You will be prompted for the database Master Password.
+It is important that you NOT FORGET this password.
+Enter KDC database master key: 
+Re-enter KDC database master key to verify: 
+[root@ashumaster ~]# cd  /var/kerberos/krb5kdc/
+[root@ashumaster krb5kdc]# ls
+kadm5.acl  kdc.conf  principal  principal.kadm5  principal.kadm5.lock  principal.ok
+[root@ashumaster krb5kdc]# 
+[root@ashumaster krb5kdc]# 
+[root@ashumaster krb5kdc]# kadmin.local  
+Authenticating as principal root/admin@HADOOP.COM with password.
+kadmin.local:  listprincs 
+K/M@HADOOP.COM
+kadmin/admin@HADOOP.COM
+kadmin/ashumaster.hadoop.com@HADOOP.COM
+kadmin/changepw@HADOOP.COM
+kiprop/ashumaster.hadoop.com@HADOOP.COM
+krbtgt/HADOOP.COM@HADOOP.COM
+kadmin.local:  addprinc  admin/admin
+WARNING: no policy specified for admin/admin@HADOOP.COM; defaulting to no policy
+Enter password for principal "admin/admin@HADOOP.COM": 
+Re-enter password for principal "admin/admin@HADOOP.COM": 
+Principal "admin/admin@HADOOP.COM" created.
+kadmin.local:  listprincs 
+K/M@HADOOP.COM
+admin/admin@HADOOP.COM
+kadmin/admin@HADOOP.COM
+kadmin/ashumaster.hadoop.com@HADOOP.COM
+kadmin/changepw@HADOOP.COM
+kiprop/ashumaster.hadoop.com@HADOOP.COM
+krbtgt/HADOOP.COM@HADOOP.COM
+kadmin.local:  
+kadmin.local:  
+
+```
+## setting acl in kerberos to make admin user
+
+```
+[root@ashumaster krb5kdc]# cat  /var/kerberos/krb5kdc/kadm5.acl 
+*/admin@HADOOP.COM	*
+```
+
+## starting services 
+
+```
+ 182  systemctl start  krb5kdc 
+  183* systemctl status krb5k 
+  184  systemctl start  kadmin 
+  185  systemctl enable  kadmin 
+  186  systemctl enable  krb5kdc 
+```
+
+## How client will login  if client is configured 
+
+```
+[root@ashumaster krb5kdc]# kadmin -p admin/admin@HADOOP.COM 
+Authenticating as principal admin/admin@HADOOP.COM with password.
+Password for admin/admin@HADOOP.COM: 
+kadmin:  listprincs 
+K/M@HADOOP.COM
+admin/admin@HADOOP.COM
+kadmin/admin@HADOOP.COM
+kadmin/ashumaster.hadoop.com@HADOOP.COM
+kadmin/changepw@HADOOP.COM
+kiprop/ashumaster.hadoop.com@HADOOP.COM
+krbtgt/HADOOP.COM@HADOOP.COM
+kadmin:  
+
+```
