@@ -91,3 +91,24 @@ gc.log-202009152312  hadoop-hdfs-namenode-ashumaster.hadoop.com.out.2     hdfs-a
 [root@ashumaster hdfs]# vim  /etc/rsyslog.conf 
 
 ```
+
+# Hadoop Security  
+
+# auth with Kerberos 
+
+<img src="security.png">
+
+## example of auth method
+
+<img src="authmethod.png">
+
+## kdc connection 
+
+<img src="con.png">
+
+## setup prerequisite 
+
+<img src="prereq.png">
+
+## setting up Kerberos Server 
+
