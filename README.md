@@ -132,3 +132,75 @@ boot.log-20200915         dmesg.old          hive                maillog-2020091
 
 <img src="order.ping">
 
+## to work with ranger we will be creating users on KDC/LDAP 
+
+### connecting to KDC remotely 
+
+<img src="kdc-connect.png">
+
+## connecting to Remote KDC 
+
+```
+[root@ip-172-31-70-135 ~]# kadmin -p  "admin/admin@EC2.INTERNAL"
+Authenticating as principal admin/admin@EC2.INTERNAL with password.
+Password for admin/admin@EC2.INTERNAL: 
+kadmin:  
+kadmin:  
+
+```
+
+## adding user to KDC
+
+```
+kadmin:  addprinc  ashutoshh@EC2.INTERNAL
+WARNING: no policy specified for ashutoshh@EC2.INTERNAL; defaulting to no policy
+Enter password for principal "ashutoshh@EC2.INTERNAL": 
+Re-enter password for principal "ashutoshh@EC2.INTERNAL": 
+Principal "ashutoshh@EC2.INTERNAL" created.
+kadmin:  
+```
+
+### checking created users
+
+```
+kadmin:  listprincs 
+HTTP/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+HTTP/ip-172-31-70-135.ec2.internal@EC2.INTERNAL
+HTTP/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+HTTP/ip-172-31-79-94.ec2.internal@EC2.INTERNAL
+K/M@EC2.INTERNAL
+activity_analyzer/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+activity_explorer/ip-172-31-68-237.ec2.internal@EC2.INTERNAL
+admin/admin@EC2.INTERNAL
+ambari-qa-myclusterrr@EC2.INTERNAL
+ambari-server-myclusterrr@EC2.INTERNAL
+amshbase/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+amszk/ip-172-31-73-56.ec2.internal@EC2.INTERNAL
+arun@EC2.INTERNAL
+ashis@EC2.INTERNAL
+ashutoshh@EC2.INTERNAL
+dinesh@EC2.INTERNAL
+dipti@EC2.INTERNAL
+
+```
+
+
+## Login to user personal user
+
+```
+[root@ip-172-31-70-135 ~]# klist 
+klist: No credentials cache found (filename: /tmp/krb5cc_0)
+[root@ip-172-31-70-135 ~]# 
+[root@ip-172-31-70-135 ~]# 
+[root@ip-172-31-70-135 ~]# kinit   ashutoshh@EC2.INTERNAL
+Password for ashutoshh@EC2.INTERNAL: 
+[root@ip-172-31-70-135 ~]# klist 
+Ticket cache: FILE:/tmp/krb5cc_0
+Default principal: ashutoshh@EC2.INTERNAL
+
+Valid starting     Expires            Service principal
+09/17/20 03:27:33  09/18/20 03:27:32  krbtgt/EC2.INTERNAL@EC2.INTERNAL
+
+```
+  ```
+  
