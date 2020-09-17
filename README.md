@@ -1,17 +1,12 @@
-# Hadoop The solution for any Bigdata related problems
+# Apache spark 
 
-## Intro
+## Distributed IN memory processing superfast framework for Bigdata 
 
-<img src="data.png">
+<img hdfsspark.png>
 
-## hadoop echo system
+## More info 
 
-<img src="hadoop.png">
+<img sparkinfo.png>
 
-## HDFS version 
+## Admin points
 
-<img src="version.png">
-
-## HDFS architecture
-
-<img src="hdfsarch.png">
