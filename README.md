@@ -93,3 +93,38 @@ Valid starting       Expires              Service principal
 ```
 
 ### Note make sure you don't have duplicate session otherwise it will not work 
+
+
+## Logs of Kerberos 
+
+```
+[root@ip-172-31-70-135 log]# ls
+ambari-agent              boot.log-20200916  grubby              hive-hcatalog     mariadb            spooler             yum.log-20200915
+ambari-infra-solr-client  btmp               grubby_prune_debug  hive2             messages           spooler-20200915    zookeeper
+ambari-metrics-monitor    btmp-20200915      hadoop              hst               messages-20200915  tallylog
+ambari-server             cloud-init.log     hadoop-hdfs         kadmind.log       ntpstats           tuned
+anaconda                  cron               hadoop-mapreduce    krb5kdc.log       ppp                webhcat
+audit                     cron-20200915      hadoop-yarn         lastlog           ranger             wpa_supplicant.log
+boot.log                  dmesg              hbase               maillog           secure             wtmp
+boot.log-20200915         dmesg.old          hive                maillog-20200915  secure-20200915    yum.log
+
+```
+
+
+## Apache Ranger. 
+
+### an autherization service for HDP 
+
+
+## Ranger setup Image 
+
+<img src="rangerpre.png">
+
+## connection mariadb with JDBC 
+
+```
+[root@ip-172-31-70-135 jdk1.8.0_112]# ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
+
+```
+
+
