@@ -130,7 +130,7 @@ boot.log-20200915         dmesg.old          hive                maillog-2020091
 
 ## After integration with Ranger or / kdc  order of HDP cluster service to start 
 
-<img src="order.ping">
+<img src="order.png">
 
 ## to work with ranger we will be creating users on KDC/LDAP 
 
