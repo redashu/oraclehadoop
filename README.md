@@ -47,4 +47,22 @@ tcp6       0      0 :::22                   :::*                    LISTEN      
 
 ```
 
+### configure spark slave / worker 
+
+```
+ 24  tar xvzf spark-2.4.7-bin-hadoop2.7.tgz 
+   25  ls
+   26  mv spark-2.4.7-bin-hadoop2.7  /opt/spark2/
+   27  export  SPARK_HOME=/opt/spark2/
+   28  export PATH=$PATH:$SPARK_HOME:$SPARK_HOME/bin:$SPARK_HOME/sbin
+   29  echo $SPARK_HOME
+   30  start-slave.sh   spark://ip-172-31-70-87.ec2.internal:7077
+   
+   ```
+   
+   
+## spark connect
+
+<img src="sparkcli.png">
+
 
