@@ -1,17 +1,12 @@
-# Hadoop The solution for any Bigdata related problems
+# Troubleshooting 
 
-## Intro
+# Security troubleshooting 
 
-<img src="data.png">
+## Cryptographic approach in kerberos 
 
-## hadoop echo system
+<img src="sym.png">
 
-<img src="hadoop.png">
+## KDC with HDFS and Hive
 
-## HDFS version 
+<img src="kdcauth.png">
 
-<img src="version.png">
-
-## HDFS architecture
-
-<img src="hdfsarch.png">
