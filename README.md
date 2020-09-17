@@ -66,3 +66,78 @@ tcp6       0      0 :::22                   :::*                    LISTEN      
 <img src="sparkcli.png">
 
 
+## spark variable persistent 
+
+```
+[root@ip-172-31-70-87 ~]# cat  /root/.bashrc 
+# .bashrc
+
+# User specific aliases and functions
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+export  SPARK_HOME=/opt/spark2/
+export PATH=$PATH:$SPARK_HOME:$SPARK_HOME/bin:$SPARK_HOME/sbin
+
+```
+
+## starting with scala using spark-shell 
+
+```
+cd /opt/spark2
+[root@ip-172-31-70-87 spark2]# ./bin/spark-shell 
+20/09/17 07:02:28 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+20/09/17 07:02:40 WARN Utils: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.
+20/09/17 07:02:40 WARN Utils: Service 'SparkUI' could not bind on port 4041. Attempting port 4042.
+20/09/17 07:02:40 WARN Utils: Service 'SparkUI' could not bind on port 4042. Attempting port 4043.
+Spark context Web UI available at http://ip-172-31-70-87.ec2.internal:4043
+Spark context available as 'sc' (master = local[*], app id = local-1600340561060).
+Spark session available as 'spark'.
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 2.4.7
+      /_/
+         
+Using Scala version 2.11.12 (OpenJDK 64-Bit Server VM, Java 1.8.0_262)
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+
+```
+
+
+## connecting spark using python 
+
+```
+[root@ip-172-31-70-87 spark2]# ./bin/pyspark 
+Python 2.7.5 (default, Apr  2 2020, 13:16:51) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-39)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+20/09/17 07:04:20 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 2.4.7
+      /_/
+
+Using Python version 2.7.5 (default, Apr  2 2020 13:16:51)
+SparkSession available as 'spark'.
+
+```
+
