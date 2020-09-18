@@ -1,17 +1,12 @@
-# Hadoop The solution for any Bigdata related problems
+# Cdap for application developers 
 
-## Intro
+<img src="manualapp.png">
 
-<img src="data.png">
 
-## hadoop echo system
+## some basic info about CDAP 
 
-<img src="hadoop.png">
+<img src="cdapinfo.png">
 
-## HDFS version 
+## CDAP arch / components 
 
-<img src="version.png">
-
-## HDFS architecture
-
-<img src="hdfsarch.png">
+<img src="archcompo.png">
